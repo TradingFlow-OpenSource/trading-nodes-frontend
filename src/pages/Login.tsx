@@ -12,19 +12,17 @@ import { toast } from '@/hooks/use-toast';
 export const Login = () => {
   const { t } = useTranslation();
   const { wholeUser } = useAuthStore();
-  const { fetchUser } = useAuth();
+  const { isAuthenticated } = useAuth(); // 使用isAuthenticated而不是fetchUser
   const navigate = useNavigate();
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
 
   // 如果用户已登录，直接跳转到dashboard
   React.useEffect(() => {
-    if (wholeUser) {
+    if (isAuthenticated) {
       navigate('/dashboard');
-    } else {
-      // 尝试获取用户信息（如果有token）
-      fetchUser();
     }
-  }, [wholeUser, navigate, fetchUser]);
+    // 移除fetchUser依赖，避免循环请求
+  }, [isAuthenticated, navigate]);
 
   const handleLoginSuccess = () => {
     toast({

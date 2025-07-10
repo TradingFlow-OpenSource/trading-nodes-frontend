@@ -90,7 +90,7 @@ const resources = {
       'auth.login.title': 'Welcome Back',
       'auth.login.subtitle': 'Sign in to access your dashboard',
       'auth.redirect.message': 'Please log in to continue',
-      'auth.redirect.countdown': 'Redirecting in {seconds} seconds',
+      'auth.redirect.countdown': 'Redirecting in {{seconds}} seconds',
       'auth.redirect.manual': 'Or click here to login now',
       
       // Common
@@ -192,7 +192,7 @@ const resources = {
       'auth.login.title': '欢迎回来',
       'auth.login.subtitle': '登录以访问您的控制台',
       'auth.redirect.message': '请登录以继续',
-      'auth.redirect.countdown': '{seconds}秒后自动跳转',
+      'auth.redirect.countdown': '{{seconds}}秒后自动跳转',
       'auth.redirect.manual': '或点击这里立即登录',
       
       // Common
