@@ -1,5 +1,6 @@
 
 import type { Config } from "tailwindcss";
+import tailwindcssAnimate from "tailwindcss-animate";
 
 export default {
 	darkMode: ["class"],
@@ -63,6 +64,8 @@ export default {
 			backgroundImage: {
 				'gradient-primary': 'linear-gradient(135deg, hsl(270 50% 40%) 0%, hsl(220 70% 50%) 100%)',
 				'gradient-card': 'linear-gradient(135deg, hsl(270 20% 15%) 0%, hsl(220 20% 20%) 100%)',
+				'gradient-card-light': 'linear-gradient(135deg, hsl(0 0% 100%) 0%, hsl(220 20% 98%) 100%)',
+				'gradient-bg-light': 'linear-gradient(135deg, hsl(0 0% 98%) 0%, hsl(220 30% 96%) 100%)',
 			},
 			borderRadius: {
 				lg: 'var(--radius)',
@@ -100,5 +103,5 @@ export default {
 			}
 		}
 	},
-	plugins: [require("tailwindcss-animate")],
+	plugins: [tailwindcssAnimate],
 } satisfies Config;

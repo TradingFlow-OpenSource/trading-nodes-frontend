@@ -8,6 +8,7 @@ import { Button } from '@/components/ui/button';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Badge } from '@/components/ui/badge';
 import { TradingNode, NodeCollection } from '@/types';
+import Output from '../../../TradingFlow/frontend/src/pages/flow/components/TFNode/components/Output';
 
 // Mock data for demonstration
 const mockNodes: TradingNode[] = [
@@ -202,17 +203,9 @@ export const Marketplace = () => {
                     <div className="ml-4 p-3 bg-gradient-primary rounded-lg flex-shrink-0">
                       <div className="w-8 h-8 bg-white/20 rounded border border-white/30">
                         <div className="flex flex-col h-full p-1">
-                          <div className="flex items-center mb-1">
-                            <div className="w-1 h-1 bg-white rounded-full mr-1"></div>
-                            <div className="text-xs text-white">Input 1</div>
-                          </div>
-                          <div className="flex items-center">
-                            <div className="w-1 h-1 bg-white rounded-full mr-1"></div>
-                            <div className="text-xs text-white">Input 2</div>
-                          </div>
-                          <div className="flex items-center justify-end mt-auto">
-                            <div className="text-xs text-white mr-1">Output</div>
-                            <div className="w-1 h-1 bg-white rounded-full"></div>
+                          <div className="flex flex-col items-center mb-1">
+                            <div className="text-xs text-white mb-1">Input</div>
+                            <div className="text-xs text-white">Output</div>
                           </div>
                         </div>
                       </div>

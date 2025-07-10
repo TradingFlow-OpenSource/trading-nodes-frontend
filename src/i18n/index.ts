@@ -116,7 +116,7 @@ const resources = {
       'nav.logout': '退出',
       
       // Landing page
-      'landing.slogan': '一个积木，人人可用',
+      'landing.slogan': '创建人人可用的积木',
       'landing.description': 'Web3交易工作流开放协议',
       'landing.subtitle': '构建、分享并变现您的交易逻辑',
       'landing.cta.explore': '探索市场',
