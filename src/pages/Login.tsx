@@ -1,42 +1,37 @@
 
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { LogIn, Mail, Lock, ArrowLeft } from 'lucide-react';
+import { LogIn, ArrowLeft } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
+import LoginModal from '@/components/auth/LoginModal';
+import { useAuthStore } from '@/store/useAuthStore';
 import { useAuth } from '@/hooks/useAuth';
 import { toast } from '@/hooks/use-toast';
 
 export const Login = () => {
   const { t } = useTranslation();
-  const { login } = useAuth();
+  const { wholeUser } = useAuthStore();
+  const { fetchUser } = useAuth();
   const navigate = useNavigate();
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [loading, setLoading] = useState(false);
+  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setLoading(true);
-
-    try {
-      await login(email, password);
-      toast({
-        title: "Welcome back!",
-        description: "You have successfully logged in.",
-      });
+  // 如果用户已登录，直接跳转到dashboard
+  React.useEffect(() => {
+    if (wholeUser) {
       navigate('/dashboard');
-    } catch (error) {
-      toast({
-        title: "Login failed",
-        description: "Please check your credentials and try again.",
-        variant: "destructive",
-      });
-    } finally {
-      setLoading(false);
+    } else {
+      // 尝试获取用户信息（如果有token）
+      fetchUser();
     }
+  }, [wholeUser, navigate, fetchUser]);
+
+  const handleLoginSuccess = () => {
+    toast({
+      title: "Welcome!",
+      description: "You have successfully logged in.",
+    });
+    navigate('/dashboard');
   };
 
   return (
@@ -61,59 +56,29 @@ export const Login = () => {
             </p>
           </div>
 
-          <form onSubmit={handleSubmit} className="space-y-6">
-            <div>
-              <Label htmlFor="email" className="flex items-center space-x-2">
-                <Mail className="w-4 h-4" />
-                <span>Email</span>
-              </Label>
-              <Input
-                id="email"
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="Enter your email"
-                required
-                className="mt-2"
-              />
-            </div>
-
-            <div>
-              <Label htmlFor="password" className="flex items-center space-x-2">
-                <Lock className="w-4 h-4" />
-                <span>Password</span>
-              </Label>
-              <Input
-                id="password"
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                placeholder="Enter your password"
-                required
-                className="mt-2"
-              />
-            </div>
-
+          <div className="space-y-6">
             <Button
-              type="submit"
+              onClick={() => setIsLoginModalOpen(true)}
               className="w-full btn-primary"
-              disabled={loading}
             >
-              {loading ? (
-                <div className="loading-spinner w-4 h-4 mr-2"></div>
-              ) : (
-                <LogIn className="w-4 h-4 mr-2" />
-              )}
-              Sign In
+              <LogIn className="w-4 h-4 mr-2" />
+              Sign In with TradingFlow
             </Button>
-          </form>
+          </div>
 
           <div className="mt-6 text-center">
             <p className="text-sm text-muted-foreground">
-              Demo: Use any email and password to login
+              Login with Google or Web3 Wallet
             </p>
           </div>
         </div>
+
+        {/* 登录模态框 */}
+        <LoginModal
+          isOpen={isLoginModalOpen}
+          onClose={() => setIsLoginModalOpen(false)}
+          onLoginCallback={handleLoginSuccess}
+        />
       </div>
     </div>
   );

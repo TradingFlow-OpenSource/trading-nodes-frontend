@@ -5,7 +5,7 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { AuthProvider } from '@/hooks/useAuth';
+import { Web3Provider } from '@/hooks/useWeb3';
 import { Layout } from '@/components/layout/Layout';
 import { Landing } from './pages/Landing';
 import { Marketplace } from './pages/Marketplace';
@@ -30,7 +30,7 @@ const App = () => {
       <TooltipProvider>
         <Toaster />
         <Sonner />
-        <AuthProvider>
+        <Web3Provider>
           <BrowserRouter>
             <Layout>
               <Routes>
@@ -58,7 +58,7 @@ const App = () => {
               </Routes>
             </Layout>
           </BrowserRouter>
-        </AuthProvider>
+        </Web3Provider>
       </TooltipProvider>
     </QueryClientProvider>
   );
